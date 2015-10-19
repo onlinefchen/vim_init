@@ -1,0 +1,12 @@
+[user]
+	name = Chen Feng
+	email = puck.chen@aliyun.com
+[core]
+	editor = vim
+[sendemail]
+	smtpserver=smtp.aliyun.com
+	smtpserverport=465
+	smtppass=xxx
+	smtpuser=puck.chen@aliyun.com
+	smtpencryption=ssl
+	suppresscc=all

@@ -1,0 +1,11 @@
+[user]
+	email = puck.chen@foxmail.com
+	name = Chen Feng
+[core]
+	editor = vim
+[sendemail]
+	smtpencryption = ssl
+	smtpserver = smtp.qq.com
+	smtpuser = puck.chen@foxmail.com
+	smtpserverport = 465
+	smtppass = 

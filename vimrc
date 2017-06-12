@@ -46,14 +46,17 @@ Plugin 'taglist.vim'
 Plugin 'matrix.vim--Yang'
 Plugin 'SuperTab'
 Plugin 'EasyGrep'
+Plugin 'Mark'
 Plugin 'shougo/neocomplcache.vim'
 Plugin 'tpope/vim-markdown'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'The-NERD-Commenter'
 "=========================================================
 set number
 set ai
 set ignorecase
 map ff :%!astyle --style=linux --indent=force-tab --brackets=linux<CR>
+map fr :StripWhitespace<CR>
 nmap <F8> :set mouse=<CR>
 nmap <F9> :set mouse=a<CR>
 "yellow
@@ -107,4 +110,12 @@ let Tlist_Auto_Open = 0
 let Tlist_GainFocus_On_ToggleOpen=1
 let Tlist_Process_File_Always=1
 let Tlist_Exit_OnlyWindow = 1
+nmap m :Mark <C-R>=expand("<cword>")<CR><CR>
+let python_highlight_all = 1
+syntax on
+set hls
 
+if has("autocmd")
+au BufReadPost * if line("`\"") > 1 && line("`\"") <= line("$") | exe "normal! g`\"" | endif
+" for simplicity, "  au BufReadPost * exe "normal! g`\"", is Okay.
+endif

@@ -1,3 +1,4 @@
+" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle  
 set nocompatible              " be iMproved, required
 filetype off                  " required
 

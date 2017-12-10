@@ -120,3 +120,19 @@ if has("autocmd")
 au BufReadPost * if line("`\"") > 1 && line("`\"") <= line("$") | exe "normal! g`\"" | endif
 " for simplicity, "  au BufReadPost * exe "normal! g`\"", is Okay.
 endif
+
+nmap <F4>      :cs find g <C-R>=expand("<cword>")<CR><CR>
+
+nmap <F7>      :set nonumber<CR>
+nmap <F3>      :Tlist<CR>
+nmap <F6>      :WMToggle<CR>
+"nmap <F10>    :cs find f <C-R>=expand("<cword>")<CR><CR>
+
+nmap <F2>      :cscope add ~/cscope/cscope.out<CR>
+
+"lastest close
+autocmd BufReadPost *
+       \ if line("'\"")>0&&line("'\"")<=line("$")|
+       \ exe "normal g'\""|
+       \ endif
+

@@ -56,7 +56,7 @@ Plugin 'The-NERD-Commenter'
 set number
 set ai
 set ignorecase
-map ff :%!astyle --style=linux --indent=force-tab --brackets=linux<CR>
+map ff :%!cp ~/bin/linux-format ./.clang-format; clang-format -style=file; rm ./.clang-format<CR>
 map fr :StripWhitespace<CR>
 nmap <F8> :set mouse=<CR>
 nmap <F9> :set mouse=a<CR>

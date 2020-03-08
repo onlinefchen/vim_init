@@ -1,5 +1,5 @@
 #vim
-yes | sudo apt-get install ctags cscope vim git global clang
+yes | sudo apt-get install ctags cscope vim git global clang clang-format
 git config --global user.name "Chen Feng"
 git config --global user.email "puck.chen@foxmail.com"
 git config core.editor vim

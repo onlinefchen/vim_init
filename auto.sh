@@ -5,6 +5,7 @@ git config --global user.email "puck.chen@foxmail.com"
 git config core.editor vim
 cp ./vimrc ~/.vim/vimrc
 cp ./linux-format ~/.vim/linux-format
+cp linux-format ~/bin/
 mkdir -p ~/.vim/cscope
 touch ~/.vim/cscope/cscope.files
 mkdir -p ~/bin

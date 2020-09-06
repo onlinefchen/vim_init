@@ -1,0 +1,12 @@
+{
+    "server":"103.99.178.201",
+    "server_port":1111,
+    "local_address": "0.0.0.0",
+    "local_port": 1080,
+    "password": "xxx",
+    "method": "aes-256-cfb",
+    "no_delay": true,
+    "fast_open": true,
+    "reuse_port": true
+}
+

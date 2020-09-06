@@ -4,6 +4,8 @@ git config --global user.name "Chen Feng"
 git config --global user.email "puck.chen@foxmail.com"
 git config --global core.editor vim
 mkdir -p ~/work/github
+echo "set completion-ignore-case on" >> ~/.inputrc
+echo "alias code='cd ~/work'" >> ~/.inputrc
 
 cp ./vimrc ~/.vim/vimrc
 cp ./linux-format ~/.vim/linux-format

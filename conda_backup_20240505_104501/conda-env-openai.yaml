@@ -1,0 +1,51 @@
+name: openai
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - ca-certificates=2024.3.11=h06a4308_0
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libffi=3.4.4=h6a678d5_0
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - ncurses=6.4=h6a678d5_0
+  - openssl=3.0.13=h7f8727e_0
+  - pip=23.3.1=py38h06a4308_0
+  - python=3.8.19=h955ad1f_0
+  - readline=8.2=h5eee18b_0
+  - setuptools=68.2.2=py38h06a4308_0
+  - sqlite=3.41.2=h5eee18b_0
+  - tk=8.6.12=h1ccaba5_0
+  - wheel=0.41.2=py38h06a4308_0
+  - xz=5.4.6=h5eee18b_0
+  - zlib=1.2.13=h5eee18b_0
+  - pip:
+      - annotated-types==0.6.0
+      - anyio==4.3.0
+      - backports-zoneinfo==0.2.1
+      - certifi==2024.2.2
+      - charset-normalizer==3.3.2
+      - distro==1.9.0
+      - exceptiongroup==1.2.0
+      - h11==0.14.0
+      - httpcore==1.0.5
+      - httpx==0.27.0
+      - idna==3.6
+      - importlib-resources==6.4.0
+      - openai==1.14.3
+      - pendulum==3.0.0
+      - pydantic==2.6.4
+      - pydantic-core==2.16.3
+      - python-dateutil==2.9.0.post0
+      - requests==2.31.0
+      - six==1.16.0
+      - sniffio==1.3.1
+      - time-machine==2.14.1
+      - tqdm==4.66.2
+      - typing-extensions==4.10.0
+      - tzdata==2024.1
+      - urllib3==2.2.1
+      - zipp==3.18.1
+prefix: /home/feng/anaconda3/envs/openai

@@ -1,41 +1,57 @@
 #!/bin/bash
 
-# 检查输入参数是否正确
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <backup|restore>"
+# Script to backup and restore conda environments
+
+# Check for the correct usage of the script
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 backup|restore"
     exit 1
 fi
 
-# 处理备份逻辑
-if [ "$1" == "backup" ]; then
-    echo "Backing up conda environments..."
-    # 创建备份目录
-    backup_dir="conda_backup_$(date +"%Y%m%d_%H%M%S")"
-    mkdir "$backup_dir"
+action=$1
+env_dir="conda_envs"
 
-    # 遍历所有conda环境并导出到yaml文件
-    for env_name in $(conda env list | grep -v '#' | awk '{print $1}'); do
-        conda env export -n "$env_name" > "$backup_dir/conda-env-$env_name.yaml"
+# Function to backup all conda environments
+backup_envs() {
+    mkdir -p "$env_dir"
+    for env in $(conda env list | grep -v "^#" | awk '{print $1}'); do
+        if [ "$env" != "base" ]; then
+            echo "Backing up environment: $env"
+            conda env export -n $env --from-history --no-builds > "$env_dir/conda-env-$env.yaml"
+        else
+            echo "Skipping base environment"
+        fi
     done
+    echo "All environments backed up successfully."
+}
 
-    echo "Backup completed. Check $backup_dir for backup files."
-
-# 处理恢复逻辑
-elif [ "$1" == "restore" ]; then
-    echo "Restoring conda environments..."
-    # 遍历当前目录下的yaml文件
-    for yaml_file in $(ls conda-env-*.yaml); do
-        # 提取环境名称
-        env_name=$(echo "$yaml_file" | sed 's/^conda-env-\(.*\)\.yaml$/\1/')
-
-        # 创建conda环境并安装组件
-        conda env create -n "$env_name" -f "$yaml_file"
+# Function to restore environments from backup
+restore_envs() {
+    for file in $env_dir/conda-env-*.yaml; do
+        env_name=$(basename $file .yaml | sed 's/conda-env-//')
+        echo "Restoring environment: $env_name from $file"
+        if conda env list | grep -q "$env_name"; then
+            echo "Environment $env_name already exists. Updating..."
+            conda env update -f $file -n $env_name
+        else
+            conda env create -f $file
+        fi
     done
+    echo "All environments restored successfully."
+}
 
-    echo "Restore completed."
-
-else
-    echo "Invalid option. Usage: $0 <backup|restore>"
-    exit 1
-fi
+# Execute the backup or restore action
+case $action in
+    backup)
+        backup_envs
+        ;;
+    restore)
+        restore_envs
+        ;;
+    *)
+        echo "Invalid action: $action"
+        echo "Usage: $0 backup|restore"
+        exit 2
+        ;;
+esac
 

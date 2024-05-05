@@ -38,7 +38,7 @@ restore_envs() {
             conda env create -f $file
             # Explicitly install pip packages after creating the environment
             source activate $env_name
-            pip install -r <(grep -oP "^  - pip:\K.*" $file | sed 's/- //g')
+            cat $file | awk '/^- pip:/,/^  - /' | grep '^- ' | sed 's/^- //' | xargs -n 1 pip install
             source deactivate
         fi
     done

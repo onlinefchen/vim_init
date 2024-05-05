@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Script to backup and restore conda environments
+# Script to backup and restore conda environments across operating systems with full channel and pip package inclusion
 
-# Check for the correct usage of the script
+# Check script usage
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 backup|restore"
     exit 1
@@ -11,21 +11,22 @@ fi
 action=$1
 env_dir="conda_envs"
 
-# Function to backup all conda environments
+# Backup all conda environments
 backup_envs() {
     mkdir -p "$env_dir"
     for env in $(conda env list | grep -v "^#" | awk '{print $1}'); do
         if [ "$env" != "base" ]; then
             echo "Backing up environment: $env"
-            conda env export -n $env --from-history --no-builds > "$env_dir/conda-env-$env.yaml"
+            # Export the environment with explicit specs for channels and pip packages
+            conda env export -n $env --no-builds > "$env_dir/conda-env-$env.yaml"
         else
             echo "Skipping base environment"
         fi
     done
-    echo "All environments backed up successfully."
+    echo "All environments have been backed up successfully."
 }
 
-# Function to restore environments from backup
+# Restore environments from backup files
 restore_envs() {
     for file in $env_dir/conda-env-*.yaml; do
         env_name=$(basename $file .yaml | sed 's/conda-env-//')
@@ -35,12 +36,16 @@ restore_envs() {
             conda env update -f $file -n $env_name
         else
             conda env create -f $file
+            # Explicitly install pip packages after creating the environment
+            source activate $env_name
+            pip install -r <(grep -oP "^  - pip:\K.*" $file | sed 's/- //g')
+            source deactivate
         fi
     done
-    echo "All environments restored successfully."
+    echo "All environments have been restored successfully."
 }
 
-# Execute the backup or restore action
+# Execute the requested action
 case $action in
     backup)
         backup_envs
